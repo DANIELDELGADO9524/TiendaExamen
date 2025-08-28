@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>Gestión de Tiendas</h2>
+
+  <form (ngSubmit)="agregarTienda()" #tiendaForm="ngForm" class="formulario">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Sucursal</mat-label>
+      <input matInput name="sucursal" [(ngModel)]="nuevoTienda.sucursal" placeholder="Sucursal" required />
+      <mat-error *ngIf="tiendaForm.submitted && !nuevoTienda.sucursal">Sucursal es obligatoria</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput name="direccion" [(ngModel)]="nuevoTienda.direccion" placeholder="Dirección" required />
+      <mat-error *ngIf="tiendaForm.submitted && !nuevoTienda.direccion">Dirección es obligatoria</mat-error>
+    </mat-form-field>
+
+    <div class="botones">
+      <button mat-raised-button color="primary" type="submit" [disabled]="tiendaForm.invalid">Agregar Tienda</button>
+      <button mat-button type="button" (click)="nuevoTienda = { sucursal: '', direccion: '' }">Limpiar</button>
+
+    </div>
+  </form>
+
+  <table mat-table [dataSource]="tiendas" class="mat-elevation-z8" style="width: 100%; margin-top: 20px;">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let tienda">{{tienda.idTienda}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="sucursal">
+      <th mat-header-cell *matHeaderCellDef>Sucursal</th>
+      <td mat-cell *matCellDef="let tienda">{{tienda.sucursal}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="direccion">
+      <th mat-header-cell *matHeaderCellDef>Dirección</th>
+      <td mat-cell *matCellDef="let tienda">{{tienda.direccion}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'sucursal', 'direccion']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'sucursal', 'direccion'];"></tr>
+  </table>
+</div>
